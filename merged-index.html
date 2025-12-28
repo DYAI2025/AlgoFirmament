@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algorhythmic Firmament | AI Astrologie Plattform</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Verschmelzung von westlicher Astrologie und BaZi – berechnet, nicht geraten. Sprechen Sie mit unseren AI-Astrologen Li Wei und Viktoria.">
+    <meta name="keywords" content="AI Astrologie, BaZi, westliche Astrologie, Horoskop, digitale Spiritualität, Li Wei, Viktoria">
+    <meta name="author" content="Algorhythmic Firmament">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://algorithmicfirmament.com/">
+    <meta property="og:title" content="Algorhythmic Firmament | AI Astrologie">
+    <meta property="og:description" content="Verschmelzung von westlicher Astrologie und BaZi mit AI Voice Agents.">
+    <meta property="og:image" content="https://r2-bucket.flowith.net/f/fac84dd6d26002ea/algorithmic_firmament_hero_image_index_3%401024x1024.jpeg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✧</text></svg>">
+    
+    <!-- Dependencies -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="algofirm-style.css">
+</head>
+<body class="bg-[#050505] text-zinc-300 overflow-x-hidden font-sans selection:bg-indigo-500/30">
+
+    <!-- p5.js Astrowheel Background -->
+    <div id="wheel-canvas" aria-hidden="true"></div>
+    <div class="wheel-gradient-overlay"></div>
+
+    <!-- Starfield (CSS) -->
+    <div id="starfield" class="fixed inset-0 pointer-events-none opacity-30 z-0"></div>
+
+    <!-- Mobile Menu Toggle -->
+    <button id="mobile-menu-toggle" 
+            class="fixed top-6 left-6 z-[60] lg:hidden w-12 h-12 rounded-xl bg-black/80 backdrop-blur-xl border border-white/10 flex items-center justify-center text-white hover:bg-indigo-600/20 transition-all"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+    </button>
+
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" 
+         class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden opacity-0 pointer-events-none transition-opacity duration-300"
+         aria-hidden="true"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="fixed left-0 top-0 h-screen w-80 bg-black/40 backdrop-blur-3xl border-r border-white/5 z-50 transform -translate-x-full lg:translate-x-0 transition-all duration-500" 
+           id="sidebar"
+           role="navigation"
+           aria-label="Main navigation">
+        <div class="p-8 flex flex-col h-full">
+            <!-- Brand -->
+            <div class="mb-12">
+                <h1 class="text-2xl font-bold tracking-tighter uppercase leading-none text-white">
+                    Firmament <span class="text-gold">AI</span>
+                </h1>
+                <p class="text-[10px] text-zinc-500 tracking-[0.4em] mt-2 uppercase">Algorithmic Astrology</p>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 space-y-2 overflow-y-auto pr-2 custom-scrollbar" id="nav-links" role="menu">
+                <!-- Generated via JS -->
+            </nav>
+
+            <!-- System Telemetry -->
+            <div class="mt-8 pt-6 border-t border-white/5">
+                <div class="p-4 rounded-xl bg-gradient-to-br from-white/5 to-transparent border border-white/10">
+                    <p class="text-[10px] text-zinc-500 uppercase tracking-widest mb-2">System Telemetry</p>
+                    <div class="flex justify-between items-center text-xs">
+                        <span>Reading Progress</span>
+                        <span id="scroll-percentage" class="text-gold font-mono">0%</span>
+                    </div>
+                    <div class="w-full h-1 bg-white/5 mt-2 rounded-full overflow-hidden">
+                        <div id="scroll-bar" class="h-full bg-gradient-to-r from-[#D4AF37] to-[#B89A4A] w-0 transition-all"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <main class="lg:ml-80 min-h-screen relative z-10">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="https://r2-bucket.flowith.net/f/fac84dd6d26002ea/algorithmic_firmament_hero_image_index_3%401024x1024.jpeg" 
+                     alt="Cosmic abstract visualization representing algorithmic destiny and digital spirituality" 
+                     class="w-full h-full object-cover opacity-40 scale-105" 
+                     id="hero-img"
+                     loading="eager">
+                <div class="absolute inset-0 bg-gradient-to-b from-black/20 via-black to-[#050505]"></div>
+            </div>
+            
+            <div class="relative z-10 text-center max-w-5xl px-8" id="hero-content">
+                <div class="flex items-center justify-center gap-4 mb-8">
+                    <span class="h-px w-12 bg-[#D4AF37]/50"></span>
+                    <span class="text-[10px] font-bold tracking-[0.6em] uppercase text-gold">AI Astrologie Plattform</span>
+                    <span class="h-px w-12 bg-[#D4AF37]/50"></span>
+                </div>
+                
+                <h2 class="text-7xl md:text-9xl font-bold tracking-tighter mb-8 leading-[0.85] text-white">
+                    Algorithmic <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-white to-[#B89A4A]">Firmament</span>
+                </h2>
+                
+                <p class="text-zinc-400 text-xl md:text-2xl max-w-3xl mx-auto font-light leading-relaxed mb-12">
+                    Berechnungen sind deterministisch. Deutungen sind reflektierende KI-Synthesen. 
+                    <span class="text-gold">Keine Vorhersagen. Keine Dogmen.</span>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                    <a href="#agents" class="group flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-[#D4AF37] to-[#B89A4A] text-black font-bold rounded-full hover:shadow-[0_0_30px_rgba(212,175,55,0.4)] transition-all duration-500">
+                        <i data-lucide="mic" class="w-5 h-5"></i>
+                        SPRECHEN SIE MIT UNSEREN AGENTEN
+                    </a>
+                    <a href="#content-flow" class="flex items-center gap-4 px-8 py-4 border border-white/20 text-white rounded-full hover:bg-white/5 transition-all">
+                        <i data-lucide="scroll" class="w-5 h-5"></i>
+                        MEHR ERFAHREN
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Agents Section -->
+        <section id="agents" class="agent-section px-8 lg:px-16 py-24">
+            <div class="max-w-6xl mx-auto">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="agent-section-title">Voice AI Astro-Agenten</h2>
+                    <div class="gold-divider max-w-xs mx-auto"></div>
+                    <p class="text-zinc-400 mt-6 max-w-2xl mx-auto">
+                        Wählen Sie Ihren Berater. Jede Antwort wird als KI-Interpretation gekennzeichnet — 
+                        berechnet aus astronomischen Daten, nicht geraten.
+                    </p>
+                </div>
+
+                <!-- Agent Grid (rendered via JS) -->
+                <div id="agent-grid" class="agent-grid mb-12"></div>
+
+                <!-- Disclosure -->
+                <div class="card-glass p-6 max-w-3xl mx-auto">
+                    <div class="card-corner tl"></div>
+                    <div class="card-corner tr"></div>
+                    <div class="card-corner bl"></div>
+                    <div class="card-corner br"></div>
+                    
+                    <div class="flex items-start gap-4">
+                        <span class="badge-ai mt-1">Disclosure</span>
+                        <div>
+                            <p class="text-sm text-zinc-400 leading-relaxed">
+                                Dies sind <span class="text-gold">AI Conversational Agents</span>. 
+                                Berechnungen basieren auf astronomischen Daten (Swiss Ephemeris / VSOP87).
+                                Interpretationen sind symbolische Synthesen — keine wissenschaftlichen Vorhersagen.
+                            </p>
+                            <div class="flex gap-2 mt-4">
+                                <span class="pill">☿ Mercury</span>
+                                <span class="pill">♀ Venus</span>
+                                <span class="pill">Ba Zi 八字</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Sections -->
+        <div id="content-flow">
+            <!-- Content modules injected here -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="p-24 border-t border-white/5 bg-[#020202]">
+            <div class="max-w-6xl mx-auto text-center">
+                <h3 class="text-2xl font-bold text-white mb-6 tracking-tighter">
+                    Die Sterne sind nicht mehr nur am Himmel — sie sind im Code.
+                </h3>
+                <div class="flex justify-center gap-8 mb-12 text-zinc-500">
+                    <a href="#" class="hover:text-gold transition-colors" aria-label="Follow us on Twitter">
+                        <i data-lucide="twitter" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" class="hover:text-gold transition-colors" aria-label="View on GitHub">
+                        <i data-lucide="github" class="w-6 h-6"></i>
+                    </a>
+                    <a href="#" class="hover:text-gold transition-colors" aria-label="Privacy and Security">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </a>
+                </div>
+                <div class="text-[10px] tracking-[0.4em] uppercase text-zinc-600">
+                    © 2025 Algorhythmic Firmament | All Rights Reserved
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- ElevenLabs Widget Container (fixed position) -->
+    <div id="active-widget-container"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="merged-main.js"></script>
+</body>
+</html>
