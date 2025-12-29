@@ -18,15 +18,15 @@ export const AGENTS = [
     icon: '陰陽'
   },
   {
-    id: 'viktoria',
-    name: 'Viktoria de las Estrellas',
-    title: 'Die Astrologin',
-    subtitle: 'Westliche Astrologie & Emotionale Guidance',
-    specialty: 'Deutet die Sterne mit warmherziger Intuition. Emotionale Resonanz, poetische Sprache, transformative Begleitung.',
-    elevenLabsId: 'agent_1701kdekhhref78v6547amzrg1nb',
-    widgetSrc: 'https://unpkg.com/@elevenlabs/convai-widget-embed@beta',
+    id: 'levi',
+    name: 'Levi',
+    title: 'Der Navigator',
+    subtitle: 'Präzise Guidance & klare Handlungsschritte',
+    specialty: 'Verbindet taktisches Denken mit astrologischem Überblick. Liefert klare, handlungsorientierte Antworten.',
+    elevenLabsId: 'agent_9001kdhah7vrfh3rd05pakg8vppk',
+    widgetSrc: 'https://unpkg.com/@elevenlabs/convai-widget-embed',
     portrait: null,
-    color: '#9B59B6', // Purple accent  
+    color: '#9B59B6', // Purple accent
     icon: '✧'
   }
 ];
